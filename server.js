@@ -195,15 +195,42 @@ app.post("/animais", (req, res) => {
 });
 // Buscar quantos bruxos há em uma casa!
 app.get("/stats", (req, res) => {
-    const { casa } = req.query
+    const {casa} = req.query
     let resultado = bruxos;
     if (casa) {
         resultado = resultado.filter((b) => b.casa.toLowerCase().includes(casa.toLowerCase()));
-    }
-
-    res.status(200).json({
+        
+        res.status(200).json({
         bruxos: `${casa} = ${resultado.length}`
     })
+    }
+   const contagemMateriais = {};
+    for (let i = 0; i < varinhas.length; i++) {
+        const varinha = varinhas[i];
+        const material = varinha.material;
+        if (contagemMateriais[material]) {
+            contagemMateriais[material]++;
+        } else {
+            contagemMateriais[material] = 1;
+        }
+    }
+
+    let materialMaisComum;
+    let maxContagem = 0;
+
+    for (const material in contagemMateriais) {
+        if (contagemMateriais[material] > maxContagem) {
+            maxContagem = contagemMateriais[material];
+            materialMaisComum = material;
+        }
+    }
+
+    if(contagemMateriais) {
+        res.status(200).json({
+            resultado: `O material mais usado é ${materialMaisComum}`
+        })
+    }
+
 });
 
 // Iniciar servidor escutando na porta definida
