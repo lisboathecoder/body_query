@@ -193,6 +193,18 @@ app.post("/animais", (req, res) => {
         data: novoAnimal
     })
 });
+// Buscar quantos bruxos há em uma casa!
+app.get("/stats", (req, res) => {
+    const { casa } = req.query
+    let resultado = bruxos;
+    if (casa) {
+        resultado = resultado.filter((b) => b.casa.toLowerCase().includes(casa.toLowerCase()));
+    }
+
+    res.status(200).json({
+        bruxos: `${casa} = ${resultado.length}`
+    })
+});
 
 // Iniciar servidor escutando na porta definida
 app.listen(serverPort, () => {
