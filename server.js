@@ -61,7 +61,7 @@ app.post("/bruxos", (req, res) => {
         id: bruxos.length + 1,
         nome,
         casa,
-        ano: parseInt(ano) || new Date().getFullYear(),
+        ano: parseInt(ano),
         varinha: varinha || "Ainda não tem varinha!",
         mascote: mascote || "Ainda não tem mascote!",
         patrono: patrono || "Ainda não tem patrono!",
